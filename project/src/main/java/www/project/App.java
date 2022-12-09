@@ -22,7 +22,7 @@ public class App {
 		Path path = Paths.get(System.getProperty("user.dir"), "sec/main/resouce/chromdriver.exe");
 
 		System.setProperty("webdriver.chrom.driver", path.toString());
-		Runtime.getRuntime().exec(
+	Runtime.getRuntime().exec(
 				"C:/Program Files/Google/Chrome/Application/chrome.exe --remote-debugging-port=9222 --user-data-dir=\"C:/selenum/AutomationProfile\"");
 
 		ChromeOptions options = new ChromeOptions();

@@ -4,7 +4,7 @@
  * JDBC드라이버를 등록후 DriverManager.getConnect()를 호출하여 데이터메이스에
  * 대한 커넥션을 얻는다.
  */
-package DB_to_JAVA;
+package LAB;
 import java.sql.Connection;
 import java.sql.DriverManager;
 

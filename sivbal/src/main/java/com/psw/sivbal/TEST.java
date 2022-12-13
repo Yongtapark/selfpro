@@ -21,8 +21,8 @@ public class TEST {
 			Path path = Paths.get(System.getProperty("user.dir"), "sec/main/resouce/chromdriver.exe");
 
 			System.setProperty("webdriver.chrom.driver", path.toString());
-			//Runtime.getRuntime().exec(
-					//"C:/Program Files/Google/Chrome/Application/chrome.exe --remote-debugging-port=9222 --user-data-dir=\"C:/selenum/AutomationProfile\"");
+
+			// Runtime.getRuntime().exec("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe --remote-debugging-port=9222 --user-data-dir=\"C:/selenum/AutomationProfile\"");
 
 			ChromeOptions options = new ChromeOptions();
 			options.setExperimentalOption("debuggerAddress", "127.0.0.1:9222");
@@ -38,7 +38,7 @@ public class TEST {
 			System.out.println("-----------------------접속중인 명단-------------------------");
 			WebElement person = driver.findElement(By.xpath("//*[@id=\"ow3\"]/div[1]/div/div[13]/div[3]/div[2]/div[1]"));
 
-			List<WebElement> personName = person.findElements(By.xpath("//*[@class='XEazBc adnwBd']"));
+			List<WebElement> personName = person.findElements(By.xpath("//*[@class='XEazBc adnwBd']"));//LogedinUserList
 			
 			
 
@@ -55,7 +55,7 @@ public class TEST {
 
 			List<WebElement> personName1 = person.findElements(By.xpath("//*[@class='XEazBc adnwBd']"));
 			
-			List<WebElement> videoname = person.findElements(By.xpath("//*[@class='Gv1mTb-aTv5jf']")); //비디오
+			List<WebElement> videoname = person.findElements(By.xpath("//*[@class='Gv1mTb-aTv5jf']")); //videoList
 			
 		
 
@@ -75,9 +75,8 @@ public class TEST {
 				
 				if(on.equals(line)) {
 				System.out.println(++count1 + "번 " + on +" : "+onAir);}
-				else {
-					System.out.println("onAir_parrents ="+on+"\nonline_Parrents ="+line);
-				}
+				System.out.println("onAir_parrents ="+on+"\nonline_Parrents ="+line);
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

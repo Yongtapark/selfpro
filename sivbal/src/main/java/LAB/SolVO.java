@@ -1,4 +1,4 @@
-package DB_to_JAVA;
+package LAB;
 
 public class SolVO {
 

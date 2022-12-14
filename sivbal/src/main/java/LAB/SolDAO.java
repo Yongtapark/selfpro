@@ -38,6 +38,7 @@ public class SolDAO {
 				if (con != null)
 					con.close();
 			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 		}
 		System.out.println("입력완료: " + retval.toString());

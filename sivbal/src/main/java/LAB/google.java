@@ -38,7 +38,7 @@ public class google {
 			BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("크롬 디버깅 모드를 실행합니다. 새 창을 실행하려면 a를, 이미 실행중인 디버깅 모드가 있다면 아무키나 누르세요");
 			String s = bf.readLine();
-			if (s.equals("a")) {
+			if (s.equalsIgnoreCase("a")) {
 
 				try {
 					Runtime.getRuntime().exec(
@@ -54,7 +54,7 @@ public class google {
 			System.out.println("인원 검색 전에 구글미팅에 접속하여 모든 인원이 보이게 만들어 준 후 x를 제외한 아무카나 누르세요.");
 			System.out.println("종료하시려면 x 키를, 계속 검색하시려면 아무키나 입력해주세요");
 			s = bf.readLine();
-			while (!s.equals("x")) {
+			while (!s.equalsIgnoreCase("x")) {
 				resultList=null;
 				resultCamon=null;
 				resultCamoff=null;

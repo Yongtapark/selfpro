@@ -35,9 +35,9 @@ public class TEST_DB_CONNECT {
 			Path path = Paths.get(System.getProperty("user.dir"), "sec/main/resouce/chromdriver.exe");
 
 			System.setProperty("webdriver.chrom.driver", path.toString());
-			// Runtime.getRuntime().exec("C:/Program Files
-			// (x86)/Google/Chrome/Application/chrome.exe --remote-debugging-port=9222
-			// --user-data-dir=\"C:/selenum/AutomationProfile\"");
+			
+			
+			 Runtime.getRuntime().exec("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe --remote-debugging-port=9222 --user-data-dir=\"C:/selenum/AutomationProfile\"");
 
 			ChromeOptions options = new ChromeOptions();
 			options.setExperimentalOption("debuggerAddress", "127.0.0.1:9222");

@@ -55,7 +55,9 @@ public class google {
 			System.out.println("종료하시려면 x 키를, 계속 검색하시려면 아무키나 입력해주세요");
 			s = bf.readLine();
 			while (!s.equals("x")) {
-
+				resultList=null;
+				resultCamon=null;
+				resultCamoff=null;
 				ChromeOptions options = new ChromeOptions();
 				options.setExperimentalOption("debuggerAddress", "127.0.0.1:9222");
 				ChromeDriver driver = new ChromeDriver(options);
@@ -112,7 +114,7 @@ public class google {
 						"------------------------------------------------SOLEDESK STUDENT CHECKER----------------------------------------------------------------");
 
 				try {
-					System.out.println("접속 인원 명단\t:" + resultList);// 전체 리스트
+					System.out.println("접속 인원 명단\t:" + resultList);//금일 접속 리스트
 					System.out.println("총" + resultList.size() + "명");
 				} catch (NullPointerException e) {
 					System.out.println("인원 없음");
@@ -138,9 +140,7 @@ public class google {
 				System.out.println(
 						"-----------------------------------------------------------------------------------------------------------------------------------------");
 				// System.out.println(camData);// 캠킨 여부
-				resultList=null;
-				resultCamon=null;
-				resultCamoff=null;
+				
 				System.out.println("종료하시려면 x 키를, 계속 검색하시려면 아무키나 입력해주세요");
 				s = bf.readLine();
 

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,13 +17,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class googlecheck {
+public class googlecheck_db {
 	public static void main(String[] args) throws IOException {
 		List<Object> data = new ArrayList<>();
 		List<Object> nameData = new ArrayList<>();
 		List<Object> camData = new ArrayList<>();
 		List<Object> noCamData = new ArrayList<>();
-		List<Object> resultList;
+		List<Object> resultList = null;
 		List<Object> onlineList =new ArrayList<>();
 		List<Object> resultCamon = null;
 		List<Object> resultCamoff = null;
@@ -33,12 +35,17 @@ public class googlecheck {
 		String teacherPresent = "임미영강사님(프레젠테이션)";
 		String[] student ={"박용타","강희원","김동기","김민창","김수현","김영덕","김운용_모바일","김재현","박종봉","박종성","심정훈","안원균","유희진","윤서빈","이강훈","이문현","이예인","이정욱","진승희","최지은","하도형"};
 		List<String> studentALL= Arrays.asList(student);
+		Connection conn = null;
+		StringBuffer sql = new StringBuffer();
+		PreparedStatement pstmt = null;
+		sql.append("INSERT INTO SOLDLOGIN VALUES(?,?,SYSDATE)");
 		
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		String s = null;
 		int i=0;
 		try {
-
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(sql.toString());
 			Path path = Paths.get(System.getProperty("user.dir"), "sec/main/resouce/chromdriver.exe");
 
 			System.setProperty("webdriver.chrom.driver", path.toString());
@@ -305,6 +312,10 @@ public class googlecheck {
 					}
 					
 				}
+				for(i=0;i<resultList.size();i++) {
+					pstmt.setString(1,resultList(i));
+				}
+				
 				
 
 			}

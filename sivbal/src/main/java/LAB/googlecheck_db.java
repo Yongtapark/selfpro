@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,18 +42,26 @@ public class googlecheck_db {
 		Connection conn = null;
 		StringBuffer sql = new StringBuffer();
 		StringBuffer sql2 = new StringBuffer();
-		PreparedStatement pstmt = null;
-		LocalDate now= LocalDate.now();
-		sql.append("INSERT INTO NAME VALUES(?,SYSDATE)");
+		StringBuffer sql3 = new StringBuffer();
+		PreparedStatement pstmt_create = null;
+		PreparedStatement pstmt_insert = null;
+		PreparedStatement pstmt_commit = null;
+		LocalDateTime now= LocalDateTime.now();
 		
-		sql2.append("create table"+now+"class (NAME VARCHAR2(50), TODAY TODATE)");
+		sql.append("create table class_"+now.format(DateTimeFormatter.ofPattern("a_HH시_mm분"))+" (NAME VARCHAR2(50))");
+		sql2.append("insert into class_"+now.format(DateTimeFormatter.ofPattern("a_HH시_mm분"))+" values(?)");
+		sql3.append("commit");
 		
+		System.out.println(now.format(DateTimeFormatter.ofPattern("a_HH시_mm분")));
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		String s = null;
 		int i=0;
 		try {
 			conn = DBUtil.getConnection();
-			pstmt = conn.prepareStatement(sql.toString());
+			pstmt_create = conn.prepareStatement(sql.toString());
+			pstmt_insert=conn.prepareStatement(sql2.toString());
+			pstmt_commit=conn.prepareStatement(sql3.toString());
+			
 			Path path = Paths.get(System.getProperty("user.dir"), "sec/main/resouce/chromdriver.exe");
 
 			System.setProperty("webdriver.chrom.driver", path.toString());
@@ -328,16 +338,29 @@ public class googlecheck_db {
 					}
 					
 				}
-				//접속인원 sql에 저장...성공이다...
+				//테이블 생성
+				try {
+					pstmt_create.executeUpdate();
+				} catch (SQLException e2) {
+					System.out.println("테이블 생성 실패");
+				}
+				
+				
+				//테이블 인서트
 				for(i=0;i<resultList.size();i++) {
 					try {
 						Object[] today=resultList.toArray();
-						pstmt.setString(1,(String) today[i]);
-						pstmt.executeUpdate();
+						pstmt_insert.setString(1,(String) today[i]);
+						pstmt_insert.executeUpdate();
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+				}
+				//커밋
+				try {
+					pstmt_commit.executeUpdate();
+				}catch (Exception e3) {
+					System.out.println("커밋실패");
 				}
 				
 				

@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -48,11 +47,11 @@ public class googlecheck_db {
 		PreparedStatement pstmt_commit = null;
 		LocalDateTime now= LocalDateTime.now();
 		
-		sql.append("create table class_"+now.format(DateTimeFormatter.ofPattern("a_HH시_mm분"))+" (NAME VARCHAR2(50))");
-		sql2.append("insert into class_"+now.format(DateTimeFormatter.ofPattern("a_HH시_mm분"))+" values(?)");
+		sql.append("create table class_"+now.format(DateTimeFormatter.ofPattern("MM월dd일_a"))+" (NAME VARCHAR2(50))");
+		sql2.append("insert into class_"+now.format(DateTimeFormatter.ofPattern("MM월dd일_a"))+" values(?)");
 		sql3.append("commit");
 		
-		System.out.println(now.format(DateTimeFormatter.ofPattern("a_HH시_mm분")));
+		System.out.println(now.format(DateTimeFormatter.ofPattern("MM월dd일_a")));
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		String s = null;
 		int i=0;
@@ -119,12 +118,13 @@ public class googlecheck_db {
 				data.removeAll(data);// 실시간 인원 확인
 				for (i = 0; i < personName.size(); i++) { // 이름 찾기
 					online = personName.get(i).getText();
+					if(!online.equals("나")) {// 나 이름 제외
 					if (!online.equals(teacher)) { // 강사님 이름 제외
 						if (!online.equals(teacherPresent)) { // 강사님 프레젠테이션 제외
 							data.add(online);// 이름을 데이터 리스트에 저장
 						}
 					}
-				}
+				}}
 				resultList = data.stream().distinct().collect(Collectors.toList());// 최종인원 확인, 중복 데이터 검열
 
 				nameData.removeAll(nameData);// 실시간으로 캠킨사람 체크

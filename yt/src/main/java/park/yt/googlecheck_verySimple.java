@@ -15,7 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class googlecheck_Simple {
+public class googlecheck_verySimple {
 	static List<Object> data = new ArrayList<>();
 	static List<Object> nameData = new ArrayList<>();
 	static List<Object> camData = new ArrayList<>();
@@ -34,10 +34,10 @@ public class googlecheck_Simple {
 	//학생 이름을 기입해 주세요
 	static String[] student ={"박용타","강희원","김동기","김민창","김수현","김영덕","김운용_모바일","김재현","박종봉","박종성","심정훈","안원균","유희진","윤서빈","이강훈","이문현","이예인","이정욱","진승희","최지은","하도형"};
 	static List<String> studentALL= Arrays.asList(student);
-	
-	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-	static String s = null;
 	public static void main(String[] args) throws IOException {
+		
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		String s = null;
 		int i=0;
 		try {
 
@@ -45,9 +45,6 @@ public class googlecheck_Simple {
 
 			System.setProperty("webdriver.chrom.driver", path.toString());
 
-			System.out.println("인원 검색 전에 구글미팅에 접속하여 모든 인원이 보이게 만들어 준 후 z키를 누르세요.");
-			System.out.println("종료하시려면 x 키를, 계속 검색하시려면 아무키나 입력해주세요");
-			s = bf.readLine();
 
 			try {
 				Runtime.getRuntime().exec(
@@ -78,8 +75,7 @@ public class googlecheck_Simple {
 				try{
 					person = driver.findElement(By.xpath("//*[@class='axUSnc  P9KVBf']"));// 전체명단
 				}catch (Exception e1) {
-					System.out.println("고정된 프레젠테이션이나 동영상이 없어야합니다. 모두 설정이 되면 z키를 입력하세요");
-					bf.readLine();
+					System.out.println("고정된 프레젠테이션이나 동영상이 없어야합니다");
 				}finally {
 					person = driver.findElement(By.xpath("//*[@class='axUSnc  P9KVBf']"));// 전체명단
 				}
@@ -193,8 +189,6 @@ public class googlecheck_Simple {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("모든 인원이 보이도록 해주세요. 재검색하려면 z를 입력하세요");
-			s = bf.readLine();
 
 			if (s.equals("z")) {
 				while (!s.equals("x")) {
@@ -209,8 +203,7 @@ public class googlecheck_Simple {
 					try{
 						person = driver.findElement(By.xpath("//*[@class='axUSnc  P9KVBf']"));// 전체명단
 					}catch (Exception e1) {
-						System.out.println("고정된 프레젠테이션이나 동영상이 없어야합니다. 모두 설정이 되면 z키를 입력하세요");
-						bf.readLine();
+					e1.printStackTrace();
 					}finally {
 						person = driver.findElement(By.xpath("//*[@class='axUSnc  P9KVBf']"));// 전체명단
 					}
@@ -317,11 +310,11 @@ public class googlecheck_Simple {
 							"----------------------------------------------------------------------------------------------------------------------------------");
 
 					System.out.println("종료하시려면 x 키를, 계속 최신화 하시려면 z키를 입력해주세요");
-					s = bf.readLine();
-					if(s.equals("x")) {
+				
+				
 					driver.get("https://meet.google.com/aue-jqnh-trq");
 					driver.close();
-					}
+					
 					
 				}
 				
@@ -329,10 +322,10 @@ public class googlecheck_Simple {
 			}
 		}
 
-	}
-	
+			
+		}
 	List<String> studentALL(){
-		
+	
 		return studentALL;
 	}
 	List<Object> resultList(){

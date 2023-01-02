@@ -25,12 +25,14 @@ public class googlecheck_Simple {
 		List<Object> onlineList =new ArrayList<>();
 		List<Object> resultCamon = null;
 		List<Object> resultCamoff = null;
-		List<Object> resultOnline = null;
+		List<Object> resultOffline = null;
 		List<WebElement> camOn;
+		WebElement person =null;
 		String cam;
 		String online = null;
-		String teacher = "임미영강사";
-		String teacherPresent = "임미영강사님(프레젠테이션)";
+		String teacher = "임미영강사"; //강사님 이름을 적으세요
+		String teacherPresent = "임미영강사님(프레젠테이션)"; //강사님 이름을 적으세요(프레젠테이션)은 지우지 말아주세요. ex)ㅇㅇㅇ강사님(프레젠테이션)
+		//학생 이름을 기입해 주세요
 		String[] student ={"박용타","강희원","김동기","김민창","김수현","김영덕","김운용_모바일","김재현","박종봉","박종성","심정훈","안원균","유희진","윤서빈","이강훈","이문현","이예인","이정욱","진승희","최지은","하도형"};
 		List<String> studentALL= Arrays.asList(student);
 		
@@ -43,8 +45,7 @@ public class googlecheck_Simple {
 
 			System.setProperty("webdriver.chrom.driver", path.toString());
 
-			System.out.println("인원 검색 전에 구글미팅에 접속하여 모든 인원이 보이게 만들어 준 후 x를 제외한 아무카나 누르세요.");
-			System.out.println("프렌테이션이 고정으로 켜져있는 경우 에러가 발생하여 자동 종료합니다.");
+			System.out.println("인원 검색 전에 구글미팅에 접속하여 모든 인원이 보이게 만들어 준 후 z키를 누르세요.");
 			System.out.println("종료하시려면 x 키를, 계속 검색하시려면 아무키나 입력해주세요");
 			s = bf.readLine();
 
@@ -64,7 +65,7 @@ public class googlecheck_Simple {
 				ChromeDriver driver = new ChromeDriver(options);
 				driver.manage().window();
 
-				driver.get("https://meet.google.com/aue-jqnh-trq");
+				driver.get("https://meet.google.com/aue-jqnh-trq");//구글 미트 주소
 
 				Thread.sleep(2000);
 
@@ -74,7 +75,14 @@ public class googlecheck_Simple {
 
 				// System.out.println("-----------------------접속중인
 				// 명단-------------------------");
-				WebElement person = driver.findElement(By.xpath("//*[@class='axUSnc  P9KVBf']"));// 전체명단
+				try{
+					person = driver.findElement(By.xpath("//*[@class='axUSnc  P9KVBf']"));// 전체명단
+				}catch (Exception e1) {
+					System.out.println("고정된 프레젠테이션이나 동영상이 없어야합니다. 모두 설정이 되면 z키를 입력하세요");
+					bf.readLine();
+				}finally {
+					person = driver.findElement(By.xpath("//*[@class='axUSnc  P9KVBf']"));// 전체명단
+				}
 
 				List<WebElement> personName = person.findElements(By.xpath("//*[@class='XEazBc adnwBd']"));// 이름
 				camOn = person.findElements(By.xpath("//*[@class='Gv1mTb-aTv5jf']"));// 비디오
@@ -88,7 +96,9 @@ public class googlecheck_Simple {
 					online = personName.get(i).getText();
 					if (!online.equals(teacher)) { // 강사님 이름 제외
 						if (!online.equals(teacherPresent)) { // 강사님 프레젠테이션 제외
-							data.add(online);// 이름을 데이터 리스트에 저장
+							if(!online.equals("나")) {
+								data.add(online);// 이름을 데이터 리스트에 저장
+							}
 						}
 					}
 				}
@@ -133,11 +143,11 @@ public class googlecheck_Simple {
 					}
 				}
 				
-				resultOnline = onlineList.stream().distinct().collect(Collectors.toList()); // 중복 리스트 제거
-				System.out.println(resultOnline);
+				resultOffline = onlineList.stream().distinct().collect(Collectors.toList()); // 중복 리스트 제거
+				System.out.println(resultOffline);
 
 				System.out.println(
-						"------------------------------------------------SOLEDESK STUDENT CHECKER----------------------------------------------------------------");
+						"------------------------------------------------ STUDENT CHECKER----------------------------------------------------------------");
 
 				try {
 					System.out.println("접속 인원 명단\t:" + resultList);// 전체 리스트
@@ -167,15 +177,15 @@ public class googlecheck_Simple {
 				System.out.println();
 				try {
 
-					System.out.println("미접속\t\t: " + resultOnline);// 캠 안킨 인원
-					System.out.println("총" + resultOnline.size() + "명");
+					System.out.println("미접속\t\t: " + resultOffline);// 미접속 인원
+					System.out.println("총" + resultOffline.size() + "명");
 				} catch (NullPointerException e1) {
 					System.out.println("인원 없음");
 				}
 				System.out.println(
-						"-----------------------------------------------------------------------------------------------------------------------------------------");
+						"----------------------------------------------------------------------------------------------------------------------------------");
 
-				System.out.println("종료하시려면 x 키를, 계속 검색하시려면 아무키나 입력해주세요");
+				System.out.println("종료하시려면 x 키를, 계속 최신화 하시려면 z키를 입력해주세요");
 				s = bf.readLine();
 
 				driver.close();
@@ -196,7 +206,14 @@ public class googlecheck_Simple {
 
 					// System.out.println("-----------------------접속중인
 					// 명단-------------------------");
-					WebElement person = driver.findElement(By.xpath("//*[@class='axUSnc  P9KVBf']"));// 전체명단
+					try{
+						person = driver.findElement(By.xpath("//*[@class='axUSnc  P9KVBf']"));// 전체명단
+					}catch (Exception e1) {
+						System.out.println("고정된 프레젠테이션이나 동영상이 없어야합니다. 모두 설정이 되면 z키를 입력하세요");
+						bf.readLine();
+					}finally {
+						person = driver.findElement(By.xpath("//*[@class='axUSnc  P9KVBf']"));// 전체명단
+					}
 
 					List<WebElement> personName = person.findElements(By.xpath("//*[@class='XEazBc adnwBd']"));// 이름
 					camOn = person.findElements(By.xpath("//*[@class='Gv1mTb-aTv5jf']"));// 비디오
@@ -210,7 +227,9 @@ public class googlecheck_Simple {
 						online = personName.get(i).getText();
 						if (!online.equals(teacher)) { // 강사님 이름 제외
 							if (!online.equals(teacherPresent)) { // 강사님 프레젠테이션 제외
-								data.add(online);// 이름을 데이터 리스트에 저장
+								if(!online.equals("나")) {
+									data.add(online);// 이름을 데이터 리스트에 저장
+								}
 							}
 						}
 					}
@@ -254,10 +273,10 @@ public class googlecheck_Simple {
 						}
 					}
 					
-					resultOnline = onlineList.stream().distinct().collect(Collectors.toList()); // 중복 리스트 제거
+					resultOffline = onlineList.stream().distinct().collect(Collectors.toList()); // 중복 리스트 제거
 
 					System.out.println(
-							"------------------------------------------------SOLEDESK STUDENT CHECKER----------------------------------------------------------------");
+							"------------------------------------------------STUDENT CHECKER----------------------------------------------------------------");
 						System.out.println("총 인원 :"+studentALL.size()+"명");
 					try {
 						System.out.println("접속 인원 명단\t:" + resultList);// 전체 리스트
@@ -287,17 +306,17 @@ public class googlecheck_Simple {
 					System.out.println();
 					try {
 
-						System.out.println("미접속\t\t: " + resultOnline);// 캠 안킨 인원
-						System.out.println("총" + resultOnline.size() + "명");
+						System.out.println("미접속\t\t: " + resultOffline);// 미접속 인원
+						System.out.println("총" + resultOffline.size() + "명");
 					} catch (NullPointerException e1) {
 						System.out.println("인원 없음");
 					}
 					
 					
 					System.out.println(
-							"-----------------------------------------------------------------------------------------------------------------------------------------");
+							"----------------------------------------------------------------------------------------------------------------------------------");
 
-					System.out.println("종료하시려면 x 키를, 계속 검색하시려면 아무키나 입력해주세요");
+					System.out.println("종료하시려면 x 키를, 계속 최신화 하시려면 z키를 입력해주세요");
 					s = bf.readLine();
 					if(s.equals("x")) {
 					driver.get("https://meet.google.com/aue-jqnh-trq");

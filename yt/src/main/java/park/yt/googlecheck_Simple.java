@@ -29,10 +29,10 @@ public class googlecheck_Simple {
 	static WebElement person =null;
 	static String cam;
 	static String online = null;
-	static String teacher = "임미영강사"; //강사님 이름을 적으세요
-	static String teacherPresent = "임미영강사님(프레젠테이션)"; //강사님 이름을 적으세요(프레젠테이션)은 지우지 말아주세요. ex)ㅇㅇㅇ강사님(프레젠테이션)
+	static String teacher = "임*영강사"; //강사님 이름을 적으세요
+	static String teacherPresent = "임*영강사님(프레젠테이션)"; //강사님 이름을 적으세요(프레젠테이션)은 지우지 말아주세요. ex)ㅇㅇㅇ강사님(프레젠테이션)
 	//학생 이름을 기입해 주세요
-	static String[] student ={"박용타","강희원","김동기","김민창","김수현","김영덕","김운용_모바일","김재현","박종봉","박종성","심정훈","안원균","유희진","윤서빈","이강훈","이문현","이예인","이정욱","진승희","최지은","하도형"};
+	static String[] student ={"박*타","강*원","김*기","김*창","김*현","김*덕","김*용_모바일","김*현","박*봉","박*성","심*훈","안*균","유*진","윤*빈","이*훈","이*현","이*인","이*욱","진*희","최*은","하*형"};
 	static List<String> studentALL= Arrays.asList(student);
 	
 	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));

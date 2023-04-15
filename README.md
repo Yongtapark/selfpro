@@ -80,7 +80,7 @@ z
 ## 작성자
 박용타
 
-park young-ta
+Yong-ta Park
 
 bjjtachan@gmail.com
 
